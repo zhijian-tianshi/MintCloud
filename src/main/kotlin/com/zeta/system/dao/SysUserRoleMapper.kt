@@ -1,6 +1,6 @@
 package com.zeta.system.dao
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper
+import com.mybatisflex.core.BaseMapper
 import com.zeta.system.model.dto.sysRole.SysRoleDTO
 import com.zeta.system.model.entity.SysRole
 import com.zeta.system.model.entity.SysUserRole

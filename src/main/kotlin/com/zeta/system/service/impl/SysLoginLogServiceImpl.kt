@@ -1,7 +1,8 @@
 package com.zeta.system.service.impl
 
 import cn.hutool.core.bean.BeanUtil
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl
+import com.mybatisflex.spring.service.impl.ServiceImpl
+
 import com.zeta.system.dao.SysLoginLogMapper
 import com.zeta.system.model.entity.SysLoginLog
 import com.zeta.system.service.ISysLoginLogService

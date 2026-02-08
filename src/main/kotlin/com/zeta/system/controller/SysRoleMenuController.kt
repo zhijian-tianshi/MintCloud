@@ -1,8 +1,8 @@
 package com.zeta.system.controller
 
 import cn.hutool.core.collection.CollUtil
-import com.baomidou.mybatisplus.extension.kotlin.KtQueryWrapper
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport
+import com.mybatisflex.core.query.QueryWrapper
 import com.zeta.system.model.dto.sysRoleMenu.SysRoleMenuHandleDTO
 import com.zeta.system.model.entity.SysMenu
 import com.zeta.system.model.entity.SysRoleMenu
@@ -44,8 +44,8 @@ class SysRoleMenuController(private val menuService: ISysMenuService) : SuperSim
     @ApiOperation(value = "查询角色菜单")
     @GetMapping("/{roleId}")
     fun list(@PathVariable("roleId") @ApiParam("角色id") roleId: Long): ApiResult<List<SysMenu?>> {
-        val menuList = menuService.list(KtQueryWrapper(SysMenu()).orderByAsc(SysMenu::sortValue)) ?: return success(mutableListOf())
-        val roleMenuList = service.list(KtQueryWrapper(SysRoleMenu()).eq(SysRoleMenu::roleId, roleId))
+        val menuList = menuService.list(QueryWrapper().orderBy(SysMenu::sortValue,true)) ?: return success(mutableListOf())
+        val roleMenuList = service.list(QueryWrapper().eq(SysRoleMenu::roleId, roleId))
         for (menu in menuList) {
             menu.checked = roleMenuList.any {
                 it.menuId == menu.id
@@ -67,7 +67,7 @@ class SysRoleMenuController(private val menuService: ISysMenuService) : SuperSim
     @PutMapping
     fun update(@RequestBody @Validated roleMenuHandleDto: SysRoleMenuHandleDTO): ApiResult<Boolean> {
         // 修改前先删除角色所有权限
-        service.remove(KtQueryWrapper(SysRoleMenu()).eq(SysRoleMenu::roleId, roleMenuHandleDto.roleId))
+        service.remove(QueryWrapper().eq(SysRoleMenu::roleId, roleMenuHandleDto.roleId))
 
         // 重新关联角色权限
         if (CollUtil.isNotEmpty(roleMenuHandleDto.menuIds)) {

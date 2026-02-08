@@ -1,6 +1,7 @@
 package org.zetaframework.base.controller
 
-import com.baomidou.mybatisplus.extension.service.IService
+
+import com.mybatisflex.core.service.IService
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired

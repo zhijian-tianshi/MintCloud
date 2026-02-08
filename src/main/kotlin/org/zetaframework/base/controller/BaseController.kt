@@ -1,6 +1,7 @@
 package org.zetaframework.base.controller
 
-import com.baomidou.mybatisplus.extension.service.IService
+import com.mybatisflex.core.service.IService
+
 
 /**
  * 基础接口

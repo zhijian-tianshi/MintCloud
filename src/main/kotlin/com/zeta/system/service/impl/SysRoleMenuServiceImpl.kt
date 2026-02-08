@@ -1,7 +1,8 @@
 package com.zeta.system.service.impl
 
-import com.baomidou.mybatisplus.extension.kotlin.KtQueryWrapper
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl
+
+import com.mybatisflex.core.query.QueryWrapper
+import com.mybatisflex.spring.service.impl.ServiceImpl
 import com.zeta.common.cacheKey.SaPermissionStringCacheKey
 import com.zeta.common.cacheKey.SaRoleStringCacheKey
 import com.zeta.system.dao.SysRoleMenuMapper
@@ -33,7 +34,7 @@ class SysRoleMenuServiceImpl(
      * @return List<Menu>
      */
     override fun listMenuByUserId(userId: Long, menuType: String?): MutableList<SysMenu> {
-        return baseMapper.listMenuByUserId(userId, menuType)
+        return mapper.listMenuByUserId(userId, menuType)
     }
 
     /**
@@ -44,7 +45,7 @@ class SysRoleMenuServiceImpl(
      * @return List<Menu>
      */
     override fun listMenuByRoleIds(roleIds: List<Long>, menuType: String?): MutableList<SysMenu> {
-        return baseMapper.listMenuByRoleIds(roleIds, menuType)
+        return mapper.listMenuByRoleIds(roleIds, menuType)
     }
 
     /**
@@ -55,7 +56,8 @@ class SysRoleMenuServiceImpl(
      */
     override fun clearUserCache(roleId: Long) {
         // 查询角色对应的用户
-        val userRoleList = userRoleService.list(KtQueryWrapper(SysUserRole())
+        val userRoleList = userRoleService.list(
+            QueryWrapper()
             .eq(SysUserRole::roleId, roleId))
         if (userRoleList.isEmpty()) return
 

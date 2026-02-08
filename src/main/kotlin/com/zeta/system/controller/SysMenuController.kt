@@ -2,8 +2,8 @@ package com.zeta.system.controller
 
 import cn.hutool.core.bean.BeanUtil
 import cn.hutool.core.lang.Assert
-import com.baomidou.mybatisplus.extension.kotlin.KtQueryWrapper
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport
+import com.mybatisflex.core.query.QueryWrapper
 import com.zeta.system.model.dto.sysMenu.SysMenuSaveDTO
 import com.zeta.system.model.dto.sysMenu.SysMenuUpdateDTO
 import com.zeta.system.model.entity.SysMenu
@@ -41,11 +41,10 @@ class SysMenuController: SuperController<ISysMenuService, Long, SysMenu, SysMenu
      * @return MutableList<Entity>
      */
     override fun handlerBatchQuery(param: SysMenuQueryParam): MutableList<SysMenu> {
-        val entity = BeanUtil.toBean(param, getEntityClass())
         // 批量查询
         val list = service.list(
-            KtQueryWrapper<SysMenu>(entity)
-                .orderByAsc(SysMenu::sortValue, SysMenu::id)
+            QueryWrapper()
+                .orderBy(SysMenu::sortValue, true)
         )
 
         // 处理批量查询数据

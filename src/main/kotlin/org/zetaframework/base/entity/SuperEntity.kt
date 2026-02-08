@@ -1,9 +1,7 @@
 package org.zetaframework.base.entity
 
-import com.baomidou.mybatisplus.annotation.FieldFill
-import com.baomidou.mybatisplus.annotation.IdType
-import com.baomidou.mybatisplus.annotation.TableField
-import com.baomidou.mybatisplus.annotation.TableId
+
+import com.mybatisflex.annotation.Column
 import io.swagger.annotations.ApiModelProperty
 import org.zetaframework.core.validation.group.Update
 import java.io.Serializable
@@ -19,19 +17,19 @@ import javax.validation.constraints.NotNull
  */
 abstract class SuperEntity<T>(
     /** id */
-    @TableId(value = FIELD_ID, type = IdType.INPUT)
+    @Column(value = FIELD_ID)
     @ApiModelProperty(value = "主键")
     @get:NotNull(message = "id不能为空",groups = [Update::class])
     open var id: T? = null,
 
     /** 创建时间 */
     @ApiModelProperty(value = "创建时间")
-    @TableField(value = CREATE_TIME_COLUMN, fill = FieldFill.INSERT)
+    @Column(value = CREATE_TIME_COLUMN)
     open var createTime: LocalDateTime? = null,
 
     /** 创建人ID */
     @ApiModelProperty(value = "创建人ID")
-    @TableField(value = CREATED_BY_COLUMN, fill = FieldFill.INSERT)
+    @Column(value = CREATED_BY_COLUMN)
     open var createdBy: T? = null,
 ): Serializable {
 

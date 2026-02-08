@@ -1,7 +1,7 @@
 package org.zetaframework.base.entity
 
-import com.baomidou.mybatisplus.annotation.SqlCondition
-import com.baomidou.mybatisplus.annotation.TableField
+
+import com.mybatisflex.annotation.Column
 import io.swagger.annotations.ApiModelProperty
 import java.io.Serializable
 import javax.validation.constraints.NotEmpty
@@ -14,24 +14,24 @@ import javax.validation.constraints.NotEmpty
  */
 abstract class TreeEntity<E, T: Serializable>(
     /** 名称 */
-    @ApiModelProperty(value = "名称")
+    @ApiModelProperty( "名称")
     @get:NotEmpty(message = "名称不能为空")
-    @TableField(value = "label", condition = SqlCondition.LIKE)
+    @Column("label")
     open var label: String? = null,
 
     /** 父级Id */
-    @ApiModelProperty(value = "父级Id")
-    @TableField(value = "parent_id")
+    @ApiModelProperty( "父级Id")
+    @Column( "parent_id")
     open var parentId: T? = null,
 
     /** 排序 */
-    @ApiModelProperty(value = "排序")
-    @TableField(value = "sort_value")
+    @ApiModelProperty( "排序")
+    @Column( "sort_value")
     open var sortValue: Int? = null,
 
     /** 子节点 */
-    @ApiModelProperty(value = "子节点")
-    @TableField(exist = false)
+    @ApiModelProperty( "子节点")
+    @Column(ignore =false)
     open var children: MutableList<E>? = null
 ): Entity<T>(), ITree<E, T> {
 

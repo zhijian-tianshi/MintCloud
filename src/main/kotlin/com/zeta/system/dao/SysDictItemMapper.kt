@@ -1,6 +1,7 @@
 package com.zeta.system.dao
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper
+
+import com.mybatisflex.core.BaseMapper
 import com.zeta.system.model.dto.sysDictItem.SysDictItemDTO
 import com.zeta.system.model.entity.SysDictItem
 import org.apache.ibatis.annotations.Param

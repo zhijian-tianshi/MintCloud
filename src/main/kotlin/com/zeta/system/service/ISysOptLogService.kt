@@ -1,6 +1,6 @@
 package com.zeta.system.service
 
-import com.baomidou.mybatisplus.extension.service.IService
+import com.mybatisflex.core.service.IService
 import com.zeta.system.model.dto.sysOptLog.SysOptLogTableDTO
 import com.zeta.system.model.entity.SysOptLog
 import com.zeta.system.model.param.SysOptLogQueryParam

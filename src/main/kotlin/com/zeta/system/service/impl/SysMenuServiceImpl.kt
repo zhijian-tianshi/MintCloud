@@ -1,6 +1,7 @@
 package com.zeta.system.service.impl
 
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl
+
+import com.mybatisflex.spring.service.impl.ServiceImpl
 import com.zeta.system.dao.SysMenuMapper
 import com.zeta.system.model.entity.SysMenu
 import com.zeta.system.service.ISysMenuService

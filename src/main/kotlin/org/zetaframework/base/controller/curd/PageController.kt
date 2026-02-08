@@ -1,8 +1,9 @@
 package org.zetaframework.base.controller.curd
 
 import cn.hutool.core.bean.BeanUtil
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper
-import com.baomidou.mybatisplus.core.metadata.IPage
+import com.mybatisflex.core.paginate.Page
+import com.mybatisflex.core.query.QueryWrapper
+
 import org.zetaframework.base.controller.BaseController
 import org.zetaframework.base.param.PageParam
 import org.zetaframework.base.result.PageResult
@@ -27,7 +28,7 @@ interface PageController<Entity, QueryParam>: BaseController<Entity> {
         handlerQueryParams(param)
 
         // 构建分页对象
-        val page: IPage<Entity> = param.buildPage<Entity>()
+        val page: Page<Entity> = Page(param.page, param.limit)
         // PageQuery -> Entity
         val model: Entity = BeanUtil.toBean(param.model, getEntityClass())
 
@@ -39,7 +40,7 @@ interface PageController<Entity, QueryParam>: BaseController<Entity> {
         // 处理查询后的分页结果
         handlerResult(page)
 
-        return PageResult(page.records, page.total)
+        return PageResult(page.records, page.pageSize)
     }
 
 
@@ -50,9 +51,9 @@ interface PageController<Entity, QueryParam>: BaseController<Entity> {
      * @param param PageParam<PageQuery>
      * @return QueryWrapper<Entity>
      */
-    fun handlerWrapper(model: Entity?, param: PageParam<QueryParam>): QueryWrapper<Entity> {
+    fun handlerWrapper(model: Entity?, param: PageParam<QueryParam>): QueryWrapper{
         // ?.let 不为空执行
-        return model?.let { QueryWrapper<Entity>(model) } ?: QueryWrapper<Entity>()
+        return model?.let { QueryWrapper() } ?: QueryWrapper()
     }
 
 
@@ -68,6 +69,6 @@ interface PageController<Entity, QueryParam>: BaseController<Entity> {
      *
      * @param page IPage
      */
-    fun handlerResult(page: IPage<Entity>) { }
+    fun handlerResult(page: Page<Entity>) { }
 
 }

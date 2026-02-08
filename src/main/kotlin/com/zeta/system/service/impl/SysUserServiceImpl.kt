@@ -3,8 +3,9 @@ package com.zeta.system.service.impl
 import cn.dev33.satoken.stp.StpInterface
 import cn.hutool.core.bean.BeanUtil
 import cn.hutool.core.collection.CollUtil
-import com.baomidou.mybatisplus.extension.kotlin.KtQueryWrapper
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl
+import com.mybatisflex.core.paginate.Page
+import com.mybatisflex.core.query.QueryWrapper
+import com.mybatisflex.spring.service.impl.ServiceImpl
 import com.zeta.system.dao.SysUserMapper
 import com.zeta.system.model.dto.sysRole.SysRoleDTO
 import com.zeta.system.model.dto.sysUser.SysUserDTO
@@ -50,14 +51,14 @@ class SysUserServiceImpl(
      */
     override fun customPage(param: PageParam<SysUserQueryParam>): PageResult<SysUserDTO> {
         // 构造分页page
-        var page = param.buildPage<SysUser>()
+        var page = Page<SysUser>(param.page, param.limit)
 
         // 构造查询条件
         val model = param.model ?: SysUserQueryParam()
         val entity = BeanUtil.toBean(model, SysUser::class.java)
 
         // 分页查询
-        page = this.page(page, KtQueryWrapper(entity))
+        page = this.page(page, QueryWrapper())
 
         // 批量获取用户角色 Map<用户id, 用户角色列表>
         val userIds = page.records.filterNotNull().map { it.id!! }
@@ -73,7 +74,7 @@ class SysUserServiceImpl(
             BeanUtil.toBean(user, SysUserDTO::class.java)
         }
 
-        return PageResult(result, page.total)
+        return PageResult(result, page.pageSize)
     }
 
     /**
@@ -164,7 +165,7 @@ class SysUserServiceImpl(
      */
     override fun getByAccount(account: String): SysUser? {
         try {
-            return baseMapper.selectByAccount(account)
+            return mapper.selectByAccount(account)
         }catch (e: Exception) {
             // 可能查询到多个用户
             throw BusinessException("查询到多个用户")

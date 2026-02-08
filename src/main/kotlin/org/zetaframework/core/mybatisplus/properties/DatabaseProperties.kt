@@ -1,13 +1,16 @@
 package org.zetaframework.core.mybatisplus.properties
 
-import com.baomidou.mybatisplus.annotation.DbType
+
+import com.mybatisflex.core.dialect.DbType
 import org.springframework.boot.context.properties.ConfigurationProperties
+import org.springframework.stereotype.Component
 import org.zetaframework.core.mybatisplus.enums.UserIdType
 
 /**
  * 数据源配置参数
  * @author gcc
  */
+@Component
 @ConfigurationProperties(prefix = "zeta.database")
 class DatabaseProperties(
     /** 是否启用 防止全表更新与删除插件 */

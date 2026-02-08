@@ -9,7 +9,7 @@ import io.swagger.annotations.ApiModelProperty
  * @author gcc
  */
 @ApiModel(description = "分页查询返回结果")
-class PageResult<T> private constructor(){
+class PageResult<T>(){
 
     @ApiModelProperty(value = "当前页数据")
     var list: List<T>? = mutableListOf()

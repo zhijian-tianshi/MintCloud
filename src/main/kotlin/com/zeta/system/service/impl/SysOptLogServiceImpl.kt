@@ -1,7 +1,8 @@
 package com.zeta.system.service.impl
 
 import cn.hutool.core.bean.BeanUtil
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl
+import com.mybatisflex.core.paginate.Page
+import com.mybatisflex.spring.service.impl.ServiceImpl
 import com.zeta.system.dao.SysOptLogMapper
 import com.zeta.system.model.dto.sysOptLog.SysOptLogTableDTO
 import com.zeta.system.model.entity.SysOptLog
@@ -40,10 +41,10 @@ class SysOptLogServiceImpl: ISysOptLogService, ServiceImpl<SysOptLogMapper, SysO
      * @param param PageParam<SysOptLogQueryParam>
      */
     override fun pageTable(param: PageParam<SysOptLogQueryParam>): PageResult<SysOptLogTableDTO> {
-        val page = param.buildPage<SysOptLogTableDTO>()
+        val page = Page<SysOptLogTableDTO>(param.page, param.limit)
         // bug fix: 解决“分页查询参数model值为null时，mybatis的查询条件构造失败”问题 --by gcc
-        val optLogList: List<SysOptLogTableDTO> = baseMapper.pageTable(page, param.model ?: SysOptLogQueryParam())
-        return PageResult(optLogList, page.total)
+        val optLogList: List<SysOptLogTableDTO> = mapper.pageTable(page, param.model ?: SysOptLogQueryParam())
+        return PageResult(optLogList,page.pageSize)
     }
 
 

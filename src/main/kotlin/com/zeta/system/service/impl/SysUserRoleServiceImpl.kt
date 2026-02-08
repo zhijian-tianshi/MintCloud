@@ -1,7 +1,8 @@
 package com.zeta.system.service.impl
 
-import com.baomidou.mybatisplus.extension.kotlin.KtQueryWrapper
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl
+
+import com.mybatisflex.core.query.QueryWrapper
+import com.mybatisflex.spring.service.impl.ServiceImpl
 import com.zeta.system.dao.SysUserRoleMapper
 import com.zeta.system.model.dto.sysRole.SysRoleDTO
 import com.zeta.system.model.entity.SysRole
@@ -29,7 +30,7 @@ class SysUserRoleServiceImpl: ISysUserRoleService, ServiceImpl<SysUserRoleMapper
      * @return List<Role>
      */
     override fun listByUserId(userId: Long): List<SysRole> {
-        return baseMapper.selectByUserId(userId)
+        return mapper.selectByUserId(userId)
     }
 
     /**
@@ -39,7 +40,7 @@ class SysUserRoleServiceImpl: ISysUserRoleService, ServiceImpl<SysUserRoleMapper
      * @return List<RoleResult>
      */
     override fun listByUserIds(userIds: List<Long>): List<SysRoleDTO> {
-        return baseMapper.selectByUserIds(userIds)
+        return mapper.selectByUserIds(userIds)
     }
 
     /**
@@ -52,7 +53,7 @@ class SysUserRoleServiceImpl: ISysUserRoleService, ServiceImpl<SysUserRoleMapper
     @Transactional(rollbackFor = [Exception::class])
     override fun saveUserRole(userId: Long, roleIds: List<Long>?): Boolean {
         // 删除用户角色关联
-        this.remove(KtQueryWrapper(SysUserRole()).eq(SysUserRole::userId, userId))
+        this.remove(QueryWrapper().eq(SysUserRole::userId, userId))
 
         if (roleIds.isNullOrEmpty()) {
             return true;

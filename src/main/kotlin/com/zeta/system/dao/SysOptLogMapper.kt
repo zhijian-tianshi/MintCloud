@@ -1,7 +1,8 @@
 package com.zeta.system.dao
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper
-import com.baomidou.mybatisplus.core.metadata.IPage
+
+import com.mybatisflex.core.BaseMapper
+import com.mybatisflex.core.paginate.Page
 import com.zeta.system.model.dto.sysOptLog.SysOptLogTableDTO
 import com.zeta.system.model.entity.SysOptLog
 import com.zeta.system.model.param.SysOptLogQueryParam
@@ -26,7 +27,7 @@ interface SysOptLogMapper: BaseMapper<SysOptLog> {
      * @param param
      */
     fun pageTable(
-        @Param("page") page: IPage<SysOptLogTableDTO>,
+        @Param("page") page: Page<SysOptLogTableDTO>,
         @Param("param") param: SysOptLogQueryParam
     ): List<SysOptLogTableDTO>
 

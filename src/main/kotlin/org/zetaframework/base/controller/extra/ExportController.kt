@@ -5,8 +5,8 @@ import cn.afterturn.easypoi.excel.entity.ExportParams
 import cn.afterturn.easypoi.excel.entity.enmus.ExcelType
 import cn.afterturn.easypoi.view.PoiBaseView
 import cn.hutool.core.bean.BeanUtil
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport
+import com.mybatisflex.core.query.QueryWrapper
 import io.swagger.annotations.ApiOperation
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.PostMapping
@@ -121,7 +121,7 @@ interface ExportController<ExportBean, Entity, QueryParam>: BaseController<Entit
         val entity = BeanUtil.toBean(param, getEntityClass())
 
         // 条件查询Entity数据
-        val list = getBaseService().list(QueryWrapper(entity))
+        val list = getBaseService().list(QueryWrapper())
         if (list.isNullOrEmpty()) return mutableListOf()
 
         // Entity -> ExportBean

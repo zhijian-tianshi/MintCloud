@@ -1,8 +1,8 @@
 package org.zetaframework.base.controller.extra
 
 import cn.hutool.core.bean.BeanUtil
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport
+import com.mybatisflex.core.query.QueryWrapper
 import io.swagger.annotations.ApiOperation
 import io.swagger.annotations.ApiParam
 import org.springframework.web.bind.annotation.GetMapping
@@ -49,7 +49,7 @@ interface NoPageQueryController<Entity, Id: Serializable, QueryParam>: BaseContr
     fun handlerBatchQuery(param: QueryParam): MutableList<Entity> {
         val entity = BeanUtil.toBean(param, getEntityClass())
         // 批量查询
-        val list = getBaseService().list(QueryWrapper<Entity>(entity))
+        val list = getBaseService().list(QueryWrapper())
         // 处理批量查询数据
         handlerBatchData(list)
         return list

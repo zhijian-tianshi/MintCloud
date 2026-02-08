@@ -1,5 +1,6 @@
 package com.zeta.system.model.dto.sysMenu
 
+import com.mybatisflex.annotation.EnumValue
 import com.zeta.system.model.enums.MenuTypeEnum
 import io.swagger.annotations.ApiModel
 import io.swagger.annotations.ApiModelProperty

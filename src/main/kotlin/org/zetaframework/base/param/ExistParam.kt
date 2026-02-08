@@ -1,9 +1,8 @@
 package org.zetaframework.base.param
 
 import cn.hutool.core.util.StrUtil
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper
-import com.baomidou.mybatisplus.extension.kotlin.AbstractKtWrapper
-import com.baomidou.mybatisplus.extension.service.IService
+import com.mybatisflex.core.query.QueryWrapper
+import com.mybatisflex.core.service.IService
 import io.swagger.annotations.ApiModel
 import io.swagger.annotations.ApiModelProperty
 import javax.validation.constraints.NotEmpty
@@ -99,7 +98,7 @@ class ExistParam<Entity, Id> private constructor() {
         val fieldName: String = if (isToUnderlineCase) { StrUtil.toUnderlineCase(field) } else { field!! }
 
         // 构造查询条件
-        val queryWrapper: QueryWrapper<Entity> = QueryWrapper<Entity>()
+        val queryWrapper: QueryWrapper = QueryWrapper()
         queryWrapper.eq(fieldName, value)
         if (id != null) {
             // 如果是修改

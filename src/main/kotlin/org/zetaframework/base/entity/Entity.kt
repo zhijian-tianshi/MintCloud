@@ -1,7 +1,7 @@
 package org.zetaframework.base.entity
 
-import com.baomidou.mybatisplus.annotation.FieldFill
-import com.baomidou.mybatisplus.annotation.TableField
+
+import com.mybatisflex.annotation.Column
 import io.swagger.annotations.ApiModelProperty
 import java.time.LocalDateTime
 
@@ -15,12 +15,12 @@ import java.time.LocalDateTime
 abstract class Entity<T>(
     /** 最后修改时间 */
     @ApiModelProperty(value = "最后修改时间")
-    @TableField(value = UPDATE_TIME_COLUMN, fill = FieldFill.INSERT_UPDATE)
+    @Column(value = UPDATE_TIME_COLUMN)
     open var updateTime: LocalDateTime? = null,
 
     /** 最后修改人ID */
     @ApiModelProperty(value = "最后修改人ID")
-    @TableField(value = UPDATED_BY_COLUMN, fill = FieldFill.INSERT_UPDATE)
+    @Column(value = UPDATED_BY_COLUMN)
     open var updatedBy: T? = null,
 ): SuperEntity<T>() {
 

@@ -1,6 +1,7 @@
 package com.zeta.system.dao
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper
+
+import com.mybatisflex.core.BaseMapper
 import com.zeta.system.model.entity.SysMenu
 import org.springframework.stereotype.Repository
 

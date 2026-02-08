@@ -1,6 +1,6 @@
 package com.zeta.system.model.enums
 
-import com.baomidou.mybatisplus.annotation.IEnum
+import com.mybatisflex.annotation.EnumValue
 import io.swagger.annotations.ApiModel
 
 /**
@@ -8,7 +8,7 @@ import io.swagger.annotations.ApiModel
  * @author gcc
  */
 @ApiModel(description = "菜单类型 枚举")
-enum class MenuTypeEnum: IEnum<String> {
+enum class MenuTypeEnum {
     /** 菜单 */
     MENU,
     /** 资源 */
@@ -17,7 +17,8 @@ enum class MenuTypeEnum: IEnum<String> {
     /**
      * 枚举数据库存储值
      */
-    override fun getValue(): String {
+    @EnumValue
+     fun getValue(): String {
         return this.name
     }
 }

@@ -2,7 +2,7 @@ package com.zeta.system.service.impl
 
 import cn.hutool.core.bean.BeanUtil
 import cn.hutool.core.io.IoUtil
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl
+import com.mybatisflex.spring.service.impl.ServiceImpl
 import com.zeta.system.dao.SysFileMapper
 import com.zeta.system.model.entity.SysFile
 import com.zeta.system.service.ISysFileService

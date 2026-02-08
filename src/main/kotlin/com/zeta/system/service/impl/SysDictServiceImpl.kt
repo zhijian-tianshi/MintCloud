@@ -1,6 +1,7 @@
 package com.zeta.system.service.impl
 
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl
+
+import com.mybatisflex.spring.service.impl.ServiceImpl
 import com.zeta.system.dao.SysDictMapper
 import com.zeta.system.model.entity.SysDict
 import com.zeta.system.service.ISysDictService

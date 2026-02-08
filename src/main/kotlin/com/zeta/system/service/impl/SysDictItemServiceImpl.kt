@@ -1,7 +1,8 @@
 package com.zeta.system.service.impl
 
-import com.baomidou.mybatisplus.extension.kotlin.KtQueryWrapper
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl
+
+import com.mybatisflex.core.query.QueryWrapper
+import com.mybatisflex.spring.service.impl.ServiceImpl
 import com.zeta.system.dao.SysDictItemMapper
 import com.zeta.system.model.dto.sysDictItem.SysDictItemDTO
 import com.zeta.system.model.entity.SysDictItem
@@ -28,7 +29,7 @@ class SysDictItemServiceImpl: ISysDictItemService, ServiceImpl<SysDictItemMapper
         if (codes.isEmpty()) { return emptyMap() }
 
         // 根据字典编码查询字典项
-        val dictItemList = baseMapper.selectByDictCodes(codes)
+        val dictItemList = mapper.selectByDictCodes(codes)
 
         // 按照字典编码分组
         return dictItemList.groupBy { it.dictCode!! }
@@ -45,7 +46,7 @@ class SysDictItemServiceImpl: ISysDictItemService, ServiceImpl<SysDictItemMapper
 
         // 通过字典id查询字典项
         val dictItemList = this.list(
-            KtQueryWrapper(SysDictItem())
+            QueryWrapper()
                 .`in`(SysDictItem::dictId, dictIds)
         ) ?: return emptyMap()
 

@@ -1,6 +1,7 @@
 package org.zetaframework.base.controller
 
-import com.baomidou.mybatisplus.extension.service.IService
+
+import com.mybatisflex.core.service.IService
 import org.zetaframework.base.controller.curd.DeleteController
 import org.zetaframework.base.controller.curd.SaveController
 import org.zetaframework.base.controller.curd.UpdateController
