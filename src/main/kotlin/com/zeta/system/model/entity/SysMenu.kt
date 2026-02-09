@@ -83,7 +83,7 @@ class SysMenu: TreeEntity<SysMenu, Long>() {
 
     /** 角色权限树选中状态 */
     @ApiModelProperty(value = "角色权限树选中状态", required = false)
-    @Column(ignore = false)
+    @Column(ignore = true)
     var checked: Boolean? = null
 
     override fun toString(): String {

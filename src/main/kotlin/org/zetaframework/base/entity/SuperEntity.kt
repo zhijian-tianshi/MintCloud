@@ -2,6 +2,9 @@ package org.zetaframework.base.entity
 
 
 import com.mybatisflex.annotation.Column
+import com.mybatisflex.annotation.Id
+import com.mybatisflex.annotation.KeyType
+import com.mybatisflex.core.keygen.KeyGenerators
 import io.swagger.annotations.ApiModelProperty
 import org.zetaframework.core.validation.group.Update
 import java.io.Serializable
@@ -20,11 +23,12 @@ abstract class SuperEntity<T>(
     @Column(value = FIELD_ID)
     @ApiModelProperty(value = "主键")
     @get:NotNull(message = "id不能为空",groups = [Update::class])
+    @Id(keyType = KeyType.Generator, value = KeyGenerators.snowFlakeId)
     open var id: T? = null,
 
     /** 创建时间 */
     @ApiModelProperty(value = "创建时间")
-    @Column(value = CREATE_TIME_COLUMN)
+    @Column(value = CREATE_TIME_COLUMN,onInsertValue = "now()")
     open var createTime: LocalDateTime? = null,
 
     /** 创建人ID */
