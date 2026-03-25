@@ -7,11 +7,13 @@ import org.slf4j.LoggerFactory
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.context.annotation.ComponentScan
+import org.springframework.scheduling.annotation.EnableScheduling
 import org.springframework.stereotype.Repository
 
 @ComponentScan(basePackages = ["com.zeta", "org.zetaframework"])
 @MapperScan(value= ["com.zeta.**.dao"], annotationClass = Repository::class)
 @SpringBootApplication
+@EnableScheduling
 class KtZetaApplication
 
 private val log: Logger = LoggerFactory.getLogger(KtZetaApplication::class.java)

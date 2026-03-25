@@ -1,6 +1,6 @@
 # 端口
 server:
-  port: 8080
+  port: 8085
 
 zeta:
   # 项目版本
@@ -70,6 +70,7 @@ zeta:
       # 忽略鉴权的地址
       ignoreUrl:
         - /**/noToken/**
+        - /api/webhook/payment/order
   # XSS防护配置
   xss:
     # XSS防护开关 默认：false
@@ -99,6 +100,24 @@ zeta:
   # websocket配置
   websocket:
     enabled: true
+  # MQTT（用于接收 STM32 遥测数据）
+  mqtt:
+    enabled: false
+    # 例如：ssl://g1a159a6.ala.cn-hangzhou.emqxsl.cn:8883
+    brokerUrl: ssl://g1a159a6.ala.cn-hangzhou.emqxsl.cn:8883
+    username: admin
+    password: admin
+    # 服务端建议订阅：mintcloud/home/+/telemetry
+    topic: mintcloud/home/+/telemetry
+    qos: 1
+    caCertClasspath: CA/emqxsl-ca.crt
+
+  # 收款消息 Webhook（回调推送）接收端配置
+  payment-webhook:
+    enabled: true
+    # actCode 白名单（为空则不放行任何请求）
+    actCodes:
+      - ABC123
   # 文件存储配置
   file:
     # 文件存储策略 LOCAL、ALI_OSS、MINIO

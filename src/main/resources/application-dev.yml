@@ -7,7 +7,7 @@ zeta:
     password: '451276358'
   # 数据源配置
   database:
-    url: jdbc:mysql://renjiantujian.com:3306/zeta_kotlin?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8
+    url: jdbc:mysql://renjiantujian.com:3306/MintCloud?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8
     username: root
     password: 451276358
     druid:
