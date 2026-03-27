@@ -45,6 +45,11 @@ class PaymentWebhookController(
             return ResponseEntity.status(503).body(mapOf("ok" to false, "message" to "webhook disabled"))
         }
 
+        // id 为0 视为测试发送，不做 actCode/deviceId 校验；但仍记录日志和落库（如果客户端重复推送，同一 (actCode, deviceId, client_order_id) 会因唯一键重复）
+        if (body.id == 0L) {
+            logger.info("测试发送成功！内容如下: {}", body)
+        }
+
         // Header 只是建议：优先使用 Body；Body 为空则回退到 Header（兼容）
         val actCode = body.actCode?.trim().takeUnless { it.isNullOrBlank() } ?: headerActCode?.trim()
         val deviceId = body.deviceId?.trim().takeUnless { it.isNullOrBlank() } ?: headerDeviceId?.trim()
@@ -65,10 +70,14 @@ class PaymentWebhookController(
 
         // 目前按你的约定：2xx 视为成功；非 2xx 视为失败（客户端仅记录日志，不阻塞本地入库）
         logger.info(
-            "payment webhook received actCode={} deviceId={} id={} method={} amount={} timeMillis={} pkg={}",
+            "收到收款  actCode={} deviceId={} id={} source={} channel={} direction={} disputed={} amount={} timeMillis={} pkg={}",
             actCode,
             deviceId,
             body.id,
+            body.source,
+            body.channel,
+            body.direction,
+            body.disputed,
             body.method,
             body.amount,
             body.timeMillis,
@@ -82,18 +91,24 @@ class PaymentWebhookController(
                 this.actCode = actCode
                 this.deviceId = deviceId
                 clientOrderId = body.id
+                source = body.source
+                channel = body.channel
                 method = body.method
                 packageName = body.packageName
+                direction = body.direction
+                disputed = body.disputed
+                disputedReason = body.disputedReason
                 amount = body.amount?.let { BigDecimal(it) }
                 result = body.result
                 timeMillis = body.timeMillis
+                detail = body.detail
                 rawTitle = body.rawTitle
                 rawText = body.rawText
             }
             paymentWebhookOrderService.save(entity)
         } catch (e: Exception) {
             // 不阻塞回调：客户端约定非2xx才算失败；这里尽量保证2xx返回
-            logger.warn("payment webhook persist failed (ignored): {}", e.message)
+            logger.warn("收款 Webhook 持久化失败（已忽略）：{}", e.message)
         }
 
         return ResponseEntity.ok(OkResponse())

@@ -53,6 +53,21 @@ class TelemetryAggregator(
         return closed
     }
 
+    /**
+     * 获取仍在进行中的窗口快照（不移除内存数据）
+     */
+    fun snapshotOpenWindows(now: LocalDateTime = LocalDateTime.now(zoneId)): List<BucketSnapshot> {
+        val nowWindowStart = alignToTenMinuteWindowStart(now)
+        val open = mutableListOf<BucketSnapshot>()
+        buckets.forEach { (key, bucket) ->
+            val windowEndExclusive = key.windowStart.plusMinutes(10)
+            if (windowEndExclusive.isAfter(nowWindowStart)) {
+                open.add(bucket.snapshot())
+            }
+        }
+        return open
+    }
+
     private fun alignToTenMinuteWindowStart(t: LocalDateTime): LocalDateTime {
         val truncated = t.truncatedTo(ChronoUnit.MINUTES)
         val minute = truncated.minute

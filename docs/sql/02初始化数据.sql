@@ -93,3 +93,10 @@ INSERT INTO `sys_dict` (`id`, `create_time`, `created_by`, `update_time`, `updat
 -- 初始化字典项
 INSERT INTO `sys_dict_item` (`id`, `create_time`, `created_by`, `update_time`, `updated_by`, `dict_id`, `name`, `value`, `describe_`, `sort_value`, `deleted`) VALUES (1645607080020672512, '2023-04-11 09:57:56', 0, '2023-04-11 09:57:56', 0, 1645607079798374400, '运行', 'RUNNING', '设备正在运行', 1, b'0');
 INSERT INTO `sys_dict_item` (`id`, `create_time`, `created_by`, `update_time`, `updated_by`, `dict_id`, `name`, `value`, `describe_`, `sort_value`, `deleted`) VALUES (1645607080020672513, '2023-04-11 09:57:56', 0, '2023-04-11 09:57:56', 0, 1645607079798374400, '停止', 'WAITING', '设备已停止', 2, b'0');
+
+
+-- IoT遥测中心菜单（可单独执行）
+INSERT INTO `sys_menu` (`id`, `create_time`, `created_by`, `update_time`, `updated_by`, `label`, `parent_id`, `sort_value`, `name`, `path`, `component`, `redirect`, `icon`, `authority`, `type`, `deleted`, `hide`, `keep_alive`, `href`, `frame_src`) VALUES (1949000000000000001, NOW(), 0, NOW(), 0, 'IoT遥测中心', 0, 20, 'iot_telemetry', '/iot/telemetry', 'iot/telemetry', NULL, 'layui-icon-chart', '', 'MENU', b'0', b'0', b'0', NULL, NULL);
+INSERT INTO `sys_menu` (`id`, `create_time`, `created_by`, `update_time`, `updated_by`, `label`, `parent_id`, `sort_value`, `name`, `path`, `component`, `redirect`, `icon`, `authority`, `type`, `deleted`, `hide`, `keep_alive`, `href`, `frame_src`) VALUES (1949000000000000002, NOW(), 0, NOW(), 0, '查看IoT遥测中心', 1949000000000000001, 1, NULL, NULL, NULL, NULL, NULL, 'iot:telemetry:view', 'RESOURCE', b'0', b'0', b'0', NULL, NULL);
+INSERT INTO `sys_role_menu` (`id`, `create_time`, `created_by`, `role_id`, `menu_id`) VALUES (1949000000000000003, NOW(), 0, 1645607076937859072, 1949000000000000001);
+INSERT INTO `sys_role_menu` (`id`, `create_time`, `created_by`, `role_id`, `menu_id`) VALUES (1949000000000000004, NOW(), 0, 1645607076937859072, 1949000000000000002);
